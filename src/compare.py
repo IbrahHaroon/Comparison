@@ -3,15 +3,21 @@ from bs4 import BeautifulSoup
 
 # Plan to create user agent script
 
-# Define our scrape function to get dimensions from given url
+# Define our scrape function to get dimensions from given file path (for now)
 # For now, this code will only take one url and print the dimensions
-def scrapeProducts(url):
-    # Request url data
-    response = requests.get(url)
-    htmlData = response.content
-    # Verify that the response was succesful and parse data
-    if response.status_code == 200:
-        parsedData = BeautifulSoup(htmlData, "html.parser")
+def scrapeProducts(file):
+    # Open the file and  parse
+    fileData = open(file, "r")
+    parsedData = BeautifulSoup(fileData, "html.parser")
+    dimensions = parsedData.find(attrs={'class': 'product-dimensions'})
+    print("Product dimensions: ", dimensions)
 
 
 
+
+
+
+
+# For our dummy product, the class name for dimensions is called "product-dimensions"
+# For Microcenter, the class name for dimensions is called "spec-body"
+# For Amazon, the class name for dimensions is called "a-size-base prodDetAttrValue"

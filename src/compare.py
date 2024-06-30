@@ -7,10 +7,14 @@ from bs4 import BeautifulSoup
 # For now, this code will only take one url and print the dimensions
 def scrapeProducts(file):
     # Open the file and  parse
-    fileData = open(file, "r")
+    fileData = open(file, "r", encoding="utf-8")
     parsedData = BeautifulSoup(fileData, "html.parser")
     dimensions = parsedData.find(attrs={'class': 'product-dimensions'})
-    print("Product dimensions: ", dimensions)
+    if dimensions:
+        print("Product dimensions: ", dimensions.get_text(strip=True))
+    else:
+        print("Dimensions not found.")
+    fileData.close
 
 
 

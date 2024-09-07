@@ -15,12 +15,14 @@ else:
 
 # Define our scrape function to get dimensions from given file path (for now)
 # For now, this code will only take one url and print the dimensions
+# It will also return the dimensions in order to graph
 def scrapeProducts(file):
     # Open the file and  parse
     parsedData = BeautifulSoup(file, "html.parser")
     dimensions = parsedData.find(attrs={'class': 'product-dimensions'})
     if dimensions:
         print("Product dimensions: ", dimensions.get_text(strip=True))
+        return dimensions.get_text(strip=True)
     else:
         print("Dimensions not found.")
     file.close

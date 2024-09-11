@@ -1,7 +1,6 @@
 import compare
 import os
-from compare
-from graph
+
 
 # Main program
 if __name__ == "__main__":

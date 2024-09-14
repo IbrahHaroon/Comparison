@@ -1,36 +1,32 @@
-import plotly.graph_objects as go
+import plotly.graph_objects as go 
+import numpy as np 
 
 
-def draw_box(length, width, height):
-    # Define the vertices of the box
-    x = [0, 0, length, length, 0, 0, length, length]
-    y = [0, width, width, 0, 0, width, width, 0]
-    z = [0, 0, 0, 0, height, height, height, height]
+def splitValues(value):
+    splitValue = value / 2
+    return splitValue
 
-    # Defining more triangles to cover each face better
-    fig = go.Figure(data=[go.Mesh3d(
-        x=x,
-        y=y,
-        z=z,
-        # Define the twelve triangles for the six faces of the box
-        i=[0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7],  # First vertices of triangles
-        j=[1, 2, 4, 2, 3, 5, 3, 6, 7, 0, 7, 6, 5, 6, 7, 6, 7, 4, 7, 4, 5, 5, 4, 6],  # Second vertices of triangles
-        k=[2, 4, 5, 3, 5, 6, 0, 4, 6, 0, 5, 7, 0, 7, 6, 1, 3, 7, 1, 0, 4, 1, 5, 0],  # Third vertices of triangles
-        color='red',  # Solid red color
-        opacity=1,    # Fully opaque
-        flatshading=True,  # Ensures a smooth look
-        showscale=False  # Hide the color scale legend
-    )])
+def plotter(x, y, z):
+    # x1 = np.linspace(-abs(splitValues(x)), splitValues(x), 11) 
+    # y1 = np.linspace(-abs(splitValues(y)), splitValues(y), 11) 
+    # z1 = np.linspace(-abs(splitValues(z)), splitValues(z), 11) 
 
-    # Hide grid, axes, and box background
-    fig.update_layout(scene=dict(
-        xaxis=dict(showbackground=False, showgrid=False, visible=False),
-        yaxis=dict(showbackground=False, showgrid=False, visible=False),
-        zaxis=dict(showbackground=False, showgrid=False, visible=False)
-    ))
+    x1 = np.linspace(0, x, 11) 
+    y1 = np.linspace(0, y, 11) 
+    z1 = np.linspace(0, z, 11) 
 
-    # Show the plot
+    X, Y, Z = np.meshgrid(x1, y1, z1) 
+
+    values = (np.sin(X**2 + Y**2))/(X**2 + Y**2) 
+
+    fig = go.Figure(data=go.Volume( 
+	x=X.flatten(), 
+	y=Y.flatten(), 
+	z=Z.flatten(), 
+	value=values.flatten(), 
+	opacity=1, 
+	)) 
+
     fig.show()
 
-# Example: 10 inches (length), 5 inches (width), 4 inches (height)
-draw_box(10, 5, 4)
+plotter(10.0, 5.0, 2.0)

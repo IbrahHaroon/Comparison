@@ -1,6 +1,7 @@
 import compare
 import os
-
+from compare import scrapeProducts
+from graph import plotter
 
 # Main program
 if __name__ == "__main__":

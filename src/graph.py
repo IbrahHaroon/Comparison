@@ -11,9 +11,9 @@ def plotter(x, y, z):
     # y1 = np.linspace(-abs(splitValues(y)), splitValues(y), 11) 
     # z1 = np.linspace(-abs(splitValues(z)), splitValues(z), 11) 
 
-    x1 = np.linspace(0, x, 11) 
-    y1 = np.linspace(0, y, 11) 
-    z1 = np.linspace(0, z, 11) 
+    x1 = np.linspace(-4, 0, 10) 
+    y1 = np.linspace(-10, y, 10) 
+    z1 = np.linspace(11, z, 10) 
 
     X, Y, Z = np.meshgrid(x1, y1, z1) 
 

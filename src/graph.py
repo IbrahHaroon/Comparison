@@ -1,32 +1,31 @@
 import plotly.graph_objects as go 
 import numpy as np 
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
+def plot_voxels_matplotlib(nx, ny, nz):
+    fig = plt.figure(figsize=(8, 6))
+    ax = fig.add_subplot(111, projection='3d')
 
-def splitValues(value):
-    splitValue = value / 2
-    return splitValue
+    # Define a 3D array of the specified shape filled with `True` (occupied voxels)
+    voxels = np.ones((nx, ny, nz), dtype=bool)
 
-def plotter(x, y, z):
-    # x1 = np.linspace(-abs(splitValues(x)), splitValues(x), 11) 
-    # y1 = np.linspace(-abs(splitValues(y)), splitValues(y), 11) 
-    # z1 = np.linspace(-abs(splitValues(z)), splitValues(z), 11) 
+    # Define colors for the voxels (all blue)
+    colors = np.full(voxels.shape, 'blue', dtype=object)
 
-    x1 = np.linspace(-4, 0, 10) 
-    y1 = np.linspace(-10, y, 10) 
-    z1 = np.linspace(11, z, 10) 
+    # Plot the voxels
+    ax.voxels(voxels, facecolors=colors, edgecolors='black', alpha=0.5)
 
-    X, Y, Z = np.meshgrid(x1, y1, z1) 
+    # Set labels and title
+    ax.set_xlabel("X axis")
+    ax.set_ylabel("Y axis")
+    ax.set_zlabel("Z axis")
+    ax.set_title(f"Voxel Grid: {nx} × {ny} × {nz}")
 
-    values = (np.sin(X**2 + Y**2))/(X**2 + Y**2) 
+    # **Fix aspect ratio so the rectangular shape is preserved**
+    ax.set_box_aspect([nx, ny, nz])  # Ensure correct aspect ratio
 
-    fig = go.Figure(data=go.Volume( 
-	x=X.flatten(), 
-	y=Y.flatten(), 
-	z=Z.flatten(), 
-	value=values.flatten(), 
-	opacity=1, 
-	)) 
+    plt.show()
 
-    fig.show()
-
-plotter(10.0, 5.0, 2.0)
+# Call function with 10×5×2 dimensions
+#plot_voxels_matplotlib(8, 8, 4)
